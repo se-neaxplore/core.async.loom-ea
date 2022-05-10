@@ -23,8 +23,7 @@
   ([]
     (thread-pool-executor nil))
   ([init-fn]
-   (let [executor-svc (Executors/newFixedThreadPool
-                        @pool-size
+   (let [executor-svc (Executors/newThreadPerTaskExecutor
                         (conc/counted-thread-factory "async-dispatch-%d" true
                           {:init-fn init-fn}))]
      (reify impl/Executor

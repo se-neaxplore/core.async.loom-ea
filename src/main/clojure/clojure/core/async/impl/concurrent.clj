@@ -28,10 +28,10 @@
          (let [body (if init-fn
                       (fn [] (init-fn) (.run ^Runnable runnable))
                       runnable)
-               t (Thread. ^Runnable body)]
-           (doto t
-             (.setName (format name-format (swap! counter inc)))
-             (.setDaemon daemon))))))))
+               t (Thread/ofVirtual)]
+           (-> t 
+               (.name (format name-format (swap! counter inc)))
+               (.unstarted ^Runnable body))))))))
 
 (defonce
   ^{:doc "Number of processors reported by the JVM"}

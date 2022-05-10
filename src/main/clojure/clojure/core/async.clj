@@ -470,7 +470,7 @@ to catch and handle."
        c#)))
 
 (defonce ^:private ^Executor thread-macro-executor
-  (Executors/newCachedThreadPool (conc/counted-thread-factory "async-thread-macro-%d" true)))
+  (Executors/newThreadPerTaskExecutor (conc/counted-thread-factory "async-thread-macro-%d" true)))
 
 (defn thread-call
   "Executes f in another thread, returning immediately to the calling
